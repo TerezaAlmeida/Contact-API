@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "fee2d4d9-7293-44ac-90f3-5cbd0cb58847",
+		"name": "Contact API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"personDetails\": {\r\n    \"firstName\": \"Mark\",\r\n    \"lastName\": \"Thesian\",\r\n\t\"dateOfBirth\": \"1980-01-02\"\r\n\t},\r\n    \"email\": {\r\n      \"type\": \"primary\",\r\n      \"value\": \"MarkThesian@gmail.com\"\r\n    } \r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users - all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user - by emailId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add contact ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"personDetails\": {\r\n    \"firstName\": \"Rick\",\r\n    \"lastName\": \"Williams\",\r\n\t\"dateOfBirth\": \"1972-01-02\"\r\n\t},\r\n  \"company\": \"\", \r\n  \"profileImage\": \"\", \r\n  \"email\": [\r\n      {\r\n\t  \"type\": \"primary\",\r\n      \"value\": \"contact15@gmail.com\"\r\n      },\r\n      {\r\n      \"type\": \"primary\",\r\n      \"value\": \"contact16@gmail.com\"\r\n      }\r\n    ],\t \r\n  \"phoneNumber\": [\r\n      {\r\n        \"type\": \"Home\",\r\n        \"value\": \"448-5551212\"\r\n      },\r\n      {\r\n        \"type\": \"Work\",\r\n        \"value\": \"856-1233212\"\r\n      }\r\n    ],\r\n  \"address\": [\r\n      {\r\n        \"apartment\": \"2410\",\r\n        \"street\": \"245 N Sheridan Road\",\r\n\t\t\"city\": \"Boston\",\r\n        \"state\": \"MA\",\r\n\t\t\"postalCode\": \"60657\",\r\n        \"country\": \"USA\"\r\n      },\r\n      {\r\n        \"apartment\": \"120\",\r\n        \"street\": \"21 W Monroe Street\",\r\n\t\t\"city\": \"New Jersey City\",\r\n        \"state\": \"NJ\",\r\n\t\t\"postalCode\": \"60628\",\r\n        \"country\": \"USA\"\r\n      }\r\n    ]\t\r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email_2}}/contact",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email_2}}",
+						"contact"
+					]
+				},
+				"description": "Add contact for a user. A user can have multtiple contacts. "
+			},
+			"response": []
+		},
+		{
+			"name": "delete user - by email id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user contacts - all ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email}}/contact",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email}}",
+						"contact"
+					]
+				},
+				"description": "Get all the contacts of a user by user's emailId."
+			},
+			"response": []
+		},
+		{
+			"name": "get user contact - by phone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email}}/contact?phone=881-5551215",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email}}",
+						"contact"
+					],
+					"query": [
+						{
+							"key": "phone",
+							"value": "881-5551215"
+						}
+					]
+				},
+				"description": "Get a user's contact by contact's phone number.Provide contact's phone number as request parameter. "
+			},
+			"response": []
+		},
+		{
+			"name": "get user contact - by email ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email}}/contact?email=contact5@gmail.com",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email}}",
+						"contact"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "contact5@gmail.com"
+						}
+					]
+				},
+				"description": "Get a user's contact by contact's email.Provide contact's email as request parameter. "
+			},
+			"response": []
+		},
+		{
+			"name": "get user contact - by email and phone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email}}/contact?email=contact5@gmail.com&phone=881-5551215",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email}}",
+						"contact"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "contact5@gmail.com"
+						},
+						{
+							"key": "phone",
+							"value": "881-5551215"
+						}
+					]
+				},
+				"description": "Get a user's contact by contact's email and phone.Provide contact's email and phone as request parameters. "
+			},
+			"response": []
+		},
+		{
+			"name": "delete user contact -  by contactId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email_2}}/contact/{{contact_id_2}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email_2}}",
+						"contact",
+						"{{contact_id_2}}"
+					]
+				},
+				"description": "Delete one user contact by user's email and contact's contactID"
+			},
+			"response": []
+		},
+		{
+			"name": "update contact",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"personDetails\": {\r\n    \"firstName\": \"Wade\",\r\n    \"lastName\": \"Kinsella\",\r\n\t\"dateOfBirth\": \"1982-04-06\"\r\n\t},\r\n  \"company\": \"Motorola\", \r\n  \"profileImage\": \"\", \r\n  \"email\": [\r\n      {\r\n\t  \"type\": \"primary\",\r\n      \"value\": \"contact5@gmail.com\"\r\n      },\r\n      {\r\n      \"type\": \"primary\",\r\n      \"value\": \"contact6@gmail.com\"\r\n      }\r\n    ],\t \r\n  \"phoneNumber\": [\r\n      {\r\n        \"type\": \"Home\",\r\n        \"value\": \"881-5551215\"\r\n      },\r\n      {\r\n        \"type\": \"Work1\",\r\n        \"value\": \"377-1231217\"\r\n      },\r\n      {\r\n        \"type\": \"Work2\",\r\n        \"value\": \"377-4431215\"\r\n      }\r\n    ],\r\n  \"address\": [\r\n      {\r\n        \"apartment\": \"2414\",\r\n        \"street\": \"2945 N Sheridan Road\",\r\n\t\t\"city\": \"San Francisco\",\r\n        \"state\": \"CA\",\r\n\t\t\"postalCode\": \"60657\",\r\n        \"country\": \"USA\"\r\n      },\r\n      {\r\n        \"apartment\": \"2213\",\r\n        \"street\": \"22 W Monroe Street\",\r\n\t\t\"city\": \"Chicago\",\r\n        \"state\": \"IL\",\r\n\t\t\"postalCode\": \"60628\",\r\n        \"country\": \"USA\"\r\n      }\r\n    ]\t\r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email}}/contact/{{contact_id}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email}}",
+						"contact",
+						"{{contact_id}}"
+					]
+				},
+				"description": "Update user contact by provising user email id and contact id."
+			},
+			"response": []
+		},
+		{
+			"name": "delete user contacts - all",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/user/{{user_email}}/contact",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"{{user_email}}",
+						"contact"
+					]
+				},
+				"description": "Delete all user  contacts by user's email."
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve all contacts  from same city",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/contact/address?city=New York",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contact",
+						"address"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "New York"
+						}
+					]
+				},
+				"description": "Retrive all contacts from same city. This search criteria is not per user basis. All contacts belonging to all users are searched. "
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve all contacts  from same state",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/contact/address?state=IL",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"contact",
+						"address"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "IL"
+						}
+					]
+				},
+				"description": "Retrive all contacts from same state. This search criteria is not per user basis. All contacts belonging to all users are searched. "
+			},
+			"response": []
+		}
+	]
+}
