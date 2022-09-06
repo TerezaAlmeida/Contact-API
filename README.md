@@ -6,15 +6,13 @@ Steps to run the Contact API:
 
 2. Open the terminal
 
-    a. Go to the folder location on the terminal
+    a. Go to the Contact-API folder location on the terminal
   
-    b. Run "npm install"
+    b. Run "cd Contact_API"
   
-    c. Run "cd Contact_API"
+    c. Find the contactIndex.js file
   
-    d. Find the contactIndex.js file
-  
-    e. Run "node contactIndex.js"
+    d. Run "node contactIndex.js"
  
  3. Go to the browser and access "localhost:4000"
  
@@ -23,7 +21,7 @@ Steps to run the Contact API:
  
  Postman Setup
  
- 1. Open the Contact_API.postman_collection.json on Postman
+ 1. Import the Contact_API.postman_collection.json in the Contact-API folder to Postman.
  
  2. Execute the POST calls in order to create the user and contact
 
