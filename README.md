@@ -10,7 +10,7 @@ Steps to run the Contact API:
   
     b. Run "npm install"
   
-    c. Enter the "cd Contact_API" command
+    c. Run "cd Contact_API"
   
     d. Find the contactIndex.js file
   
