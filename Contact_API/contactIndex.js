@@ -129,6 +129,56 @@ app.get('/api/v1/user/:emailId/contact', (req, res) =>{
     }
 });
 
+app.get('/api/v1/contact/address', (req, res) =>{
+
+    const queryCity = req.query.city;
+    const queryState = req.query.state;
+
+    let typeOfCall;
+
+    if(queryCity) typeOfCall = 'City';
+    
+    else if (queryState) typeOfCall = 'State';
+
+    switch(typeOfCall){
+        case 'City':
+            let findContactsCity = [];
+
+            for(var i=0; i<contacts.length; i++){
+                if (Array.isArray(contacts[i].address && contacts[i].address)) {
+
+                    for (var j = 0; j<contacts[i].address.length;j++){
+                        if(contacts[i].address[j].city === queryCity) findContactsCity.push(contacts[i]);
+                    }
+                }
+                else {
+                    if(contacts[i].address.city === queryCity) findContactsCity.push(contacts[i]);
+                }
+            }
+
+            if(!findContactsCity || findContactsCity.length === 0) return res.status(404).send('The contact with the given city was not found.');
+            return res.send(findContactsCity);
+
+        case 'State':
+                let findContactsState = [];
+    
+                for(var i=0; i<contacts.length; i++){
+                    if (Array.isArray(contacts[i].address && contacts[i].address)) {
+    
+                        for (var j = 0; j<contacts[i].address.length;j++){
+                            if(contacts[i].address[j].state === queryState) findContactsState.push(contacts[i]);
+                        }
+                    }
+                    else {
+                        if(contacts[i].address.state === queryState) findContactsState.push(contacts[i]);
+                    }
+                }
+    
+                if(!findContactsState || findContactsState.length === 0) return res.status(404).send('The contact with the given state was not found.');
+                return res.send(findContactsState);
+    }
+});
+
 app.get('/api/v1/user/:emailId', (req, res) =>{
     const findUser = users.find(c => c.email.value === req.params.emailId);
     if(!findUser) return res.status(404).send('The contact with the given email was not found. Create a user with the email: ' + contacts.find(c => c.email.value));
