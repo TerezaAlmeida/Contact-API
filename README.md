@@ -1,6 +1,11 @@
 # Contact-API
 
+Pre-requisite:
+
+- Intall Node.js (https://nodejs.org/en/)
+
 Steps to run the Contact API:
+
 
 1. Clone this repository in your local machine
 
