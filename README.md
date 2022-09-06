@@ -6,15 +6,15 @@ Steps to run the Contact API:
 
 2. Open the terminal
 
-  a. Go to the folder location on the terminal
+    a. Go to the folder location on the terminal
   
-  b. Run "npm install"
+    b. Run "npm install"
   
-  c. Enter the "cd Contact_API" command
+    c. Enter the "cd Contact_API" command
   
-  d. Find the contactIndex.js file
+    d. Find the contactIndex.js file
   
-  e. Run "node contactIndex.js"
+    e. Run "node contactIndex.js"
  
  3. Go to the browser and access "localhost:4000"
  
