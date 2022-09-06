@@ -255,6 +255,40 @@ app.put('/api/v1/user/:emailId/contact/:contactId', (req, res) =>{
     res.send(findContact);
 });
 
+app.delete('/api/v1/user/:emailId', (req, res) =>{
+    const findUser = users.find(c => c.email.value === req.params.emailId);
+    if(!findUser) return res.status(404).send('The user with the given user email was not found.');
+
+    const indexUser = users.indexOf(findUser);
+    users.splice(indexUser, 1);
+
+    res.send(users);
+})
+
+app.delete('/api/v1/user/:emailId/contact/:contactId', (req, res) =>{
+    const findContact = contacts.find(c => c.id === parseInt(req.params.contactId));
+    if(!findContact) return res.status(404).send('The contact with the given ID was not found.');
+
+    const findUser = users.find(c => c.email.value === req.params.emailId);
+    if(!findUser) return res.status(404).send('The user with the given email was not found.');
+
+    const index = contacts.indexOf(findContact);
+    contacts.splice(index, 1);
+
+    res.send(contacts);
+})
+
+app.delete('/api/v1/user/:emailId/contact', (req, res) =>{
+    const findUser = users.find(c => c.email.value === req.params.emailId);
+    if(!findUser) return res.status(404).send('The user with the given email was not found.');
+
+    for(var i = 0; i<contacts.length; i++){
+        contacts.splice(i);
+    }
+
+    res.send(contacts);
+})
+
 function validateUser(user){
     const schema = Joi.object({
         personDetails: {
