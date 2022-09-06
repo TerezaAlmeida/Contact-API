@@ -19,10 +19,7 @@ Steps to run the Contact API:
  4. Done, the Contact API will be running.
  
  
- Postman Setup
+Postman variables setup example:
  
- 1. Import the Contact_API.postman_collection.json in the Contact-API folder to Postman.
- 
- 2. Execute the POST calls in order to create the user and contact
-
- 3. Execute the other calls to validate that the API is working as expected.
+Protocol: http
+url: localhost:4000
