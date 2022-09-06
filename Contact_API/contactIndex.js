@@ -1,6 +1,9 @@
 const Joi = require('joi');
 const express = require('express');
 const app = express();
+const url = require('url');
+const { query } = require('express');
+const { type } = require('os');
 
 app.use(express.json());
 
@@ -26,7 +29,7 @@ const contacts = [{
         profileImage : "XImage.jpg",
         email: {
             type: "Home",
-            value: "contact1@gmail.com"
+            value: "contactx@gmail.com"
         },
         phoneNumber: {
             type : "primary",
@@ -46,18 +49,90 @@ app.get('/api/v1/user', (req, res) =>{
     res.send(users);
 });
 
-app.get('/api/v1/user/:emailId/contact', (req, res) =>{ // to do
-    res.send(contacts);
+app.get('/api/v1/user/:emailId/contact', (req, res) =>{
+
+    const queryEmail = req.query.email;
+    const queryPhone = req.query.phone;
+
+    let typeOfCall;
+
+    if(queryEmail) {
+        if (queryPhone) typeOfCall = 'PhoneAndEmail';
+        else typeOfCall = 'Email';
+    } 
+    else if (queryPhone) typeOfCall = 'Phone';
+    else typeOfCall = 'Undefined';
+
+    let findUser = users.find(c => c.email.value === req.params.emailId);
+    if(!findUser) return res.status(404).send('The contact with the given user email was not found.');
+
+    switch(typeOfCall){
+        case 'Email':
+            let findContactsEmail = [];
+
+            for(var i=0; i<contacts.length; i++){
+                if (Array.isArray(contacts[i].email && contacts[i].email)) {
+
+                    for (var j = 0; j<contacts[i].email.length;j++){
+                        if(contacts[i].email[j].value === queryEmail) findContactsEmail.push(contacts[i]);
+                    }
+                }
+                else {
+                    if(contacts[i].email.value === queryEmail) findContactsEmail.push(contacts[i]);
+                }
+            }
+
+            if(!findContactsEmail || findContactsEmail.length === 0) return res.status(404).send('The contact with the given email was not found.');
+            return res.send(findContactsEmail);
+
+        case 'Phone':
+                let findContactsPhone = [];
+    
+                for(var i=0; i<contacts.length; i++){
+                    if (Array.isArray(contacts[i].phoneNumber && contacts[i].phoneNumber)) {
+    
+                        for (var j = 0; j<contacts[i].phoneNumber.length;j++){
+                            if(contacts[i].phoneNumber[j].value === queryPhone) findContactsPhone.push(contacts[i]);
+                        }
+                    }
+                    else {
+                        if(contacts[i].phoneNumber.value === queryPhone) findContactsPhone.push(contacts[i]);
+                    }
+                }
+    
+                if(!findContactsPhone || findContactsPhone.length === 0) return res.status(404).send('The contact with the given phone was not found.');
+                return res.send(findContactsPhone);
+
+        case 'PhoneAndEmail':
+            let findContactsPhoneEmail = [];
+    
+            for(var i=0; i<contacts.length; i++){
+                if (Array.isArray(contacts[i].phoneNumber && contacts[i].phoneNumber) 
+                    && Array.isArray(contacts[i].email && contacts[i].email)) {
+
+                    for (var j = 0; j<contacts[i].phoneNumber.length;j++){
+                        if(contacts[i].phoneNumber[j].value === queryPhone 
+                            && contacts[i].email[j].value === queryEmail) findContactsPhoneEmail.push(contacts[i]);
+                    }
+                }
+                else {
+                    if(contacts[i].phoneNumber.value === queryPhone 
+                        && contacts[i].email.value === queryEmail) findContactsPhoneEmail.push(contacts[i]);
+                }
+            }
+
+            if(!findContactsPhoneEmail || findContactsPhoneEmail.length === 0) return res.status(404).send('The contact with the given Email and Phone was not found.');
+            return res.send(findContactsPhoneEmail);
+
+        default:
+            return res.send(contacts);
+    }
 });
 
 app.get('/api/v1/user/:emailId', (req, res) =>{
     const findUser = users.find(c => c.email.value === req.params.emailId);
     if(!findUser) return res.status(404).send('The contact with the given email was not found. Create a user with the email: ' + contacts.find(c => c.email.value));
     res.send(findUser);
-});
-
-app.get('/api/v1/user/:emailId/contact?email', (req, res) =>{ // to do query params
-    res.send(contacts);
 });
 
 app.post('/api/v1/user', (req,res) =>{
@@ -79,7 +154,10 @@ app.post('/api/v1/user', (req,res) =>{
     res.send(user);
 })
 
-app.post('/api/v1/user//contact', (req, res) =>{
+app.post('/api/v1/user/:emailId/contact', (req, res) =>{
+
+    const findUser = users.find(c => c.email.value === req.params.emailId);
+    if(!findUser) return res.status(404).send('The contact with the given email was not found.');
 
     const {error} = validateContact(req.body); 
 
@@ -109,10 +187,10 @@ function validateUser(user){
             lastName : Joi.string().required(),
             dateOfBirth: Joi.string().required(),
         },
-        email: Joi.array().items(Joi.object({
+        email: {
             type: Joi.string(),
             value : Joi.string().required(),
-        })),
+        },
     });
 
     return schema.validate(user);
@@ -133,7 +211,7 @@ function validateContact(contact) {
         })),
         phoneNumber: Joi.array().items(Joi.object({
             type: Joi.string().allow(null, ''),
-            value : Joi.string(),
+            value : Joi.string().required(),
         })),
         address: Joi.array().items(Joi.object({
             apartment: Joi.string().allow(null, ''),
@@ -175,7 +253,7 @@ function displayArray(contactData, contactType){
             }
             return list;
         }
-    }
+}
 
 const port = process.env.port || 4000
-app.listen(port, () => console.log(`Listenin on port ${port}...`));
+app.listen(port, () => console.log(`Listening on port ${port}...`));
