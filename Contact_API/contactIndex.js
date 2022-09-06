@@ -46,6 +46,10 @@ const contacts = [{
         }
 }];
 
+app.get("/", (req,res) =>{
+    res.send("Welcome to Contact API")
+})
+
 app.get('/api/v1/user', (req, res) =>{
     res.send(users);
 });
