@@ -20,6 +20,7 @@ const users = [{
 }];
 
 const contacts = [{
+    id: 1,
     personDetails: { 
         firstName : "Contact1",
         lastName : "LastName1",
@@ -214,6 +215,7 @@ app.post('/api/v1/user/:emailId/contact', (req, res) =>{
     if (error) return res.status(400).send(error);
 
     const contact = {
+        id: contacts.length + 1,
         personDetails: { 
         firstName : req.body.personDetails.firstName,
         lastName : req.body.personDetails.lastName,
@@ -229,6 +231,29 @@ app.post('/api/v1/user/:emailId/contact', (req, res) =>{
     contacts.push(contact);
     res.send(contact);
 })
+
+app.put('/api/v1/user/:emailId/contact/:contactId', (req, res) =>{
+    const findContact = contacts.find(c => c.id === parseInt(req.params.contactId));
+    if(!findContact) return res.status(404).send('The contact with the given ID was not found.');
+    
+    const findUser = users.find(c => c.email.value === req.params.emailId);
+    if(!findUser) return res.status(404).send('The user with the given email was not found.');
+
+    const {error} = validateContact(req.body); 
+
+    if (error) return res.status(400).send(error);
+
+    findContact.personDetails.firstName = req.body.personDetails.firstName;
+    findContact.personDetails.lastName = req.body.personDetails.lastName;
+    findContact.personDetails.dateOfBirth = req.body.personDetails.dateOfBirth;
+    findContact.company = req.body.company;
+    findContact.profileImage = req.body.profileImage;
+    findContact.email = displayArray(req.body.email, "email");
+    findContact.phoneNumber = displayArray(req.body.phoneNumber, "phoneNumber");
+    findContact.address = displayArray(req.body.address, "address");
+
+    res.send(findContact);
+});
 
 function validateUser(user){
     const schema = Joi.object({
